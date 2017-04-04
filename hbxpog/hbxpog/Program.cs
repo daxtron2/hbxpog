@@ -12,7 +12,7 @@ namespace hbxpog
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("To generate OTP type (1), to decode a message type (2): ");//prompt user for which operation to do
+            Console.Write("To generate OTP type (1), to decode a message type (2), encode a message with a custom OTP type (3): ");//prompt user for which operation to do
             string genOrDecodeResp = Console.ReadLine();//store their response
             if(genOrDecodeResp == "1")//if they want to generate an OTP
             {
@@ -21,6 +21,18 @@ namespace hbxpog
             else if(genOrDecodeResp == "2")//if they want to decode a message
             {
                 DecodeMessage();
+            }
+            else if(genOrDecodeResp == "3")//if they want to encode with a custom OTP
+            {
+                Console.Write("Enter the key, seperated by (/): ");//prompt for the key, seperated by /
+                string key = Console.ReadLine();//read that into a string
+                string[] keyAStr = key.Split('/');//split the key into a string array
+                int[] keyAInt = new int[keyAStr.Length];//create an int array for the key
+                for (int i = 0; i < keyAInt.Length; i++)
+                {
+                    keyAInt[i] = int.Parse(keyAStr[i]);//parse every string of the key array into the int array
+                }
+                EncryptMessage(keyAInt);
             }
             else//if they didn't enter anything correctly
             {
