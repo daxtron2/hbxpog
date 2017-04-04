@@ -12,7 +12,8 @@ namespace hbxpog
     {
         static void Main(string[] args)
         {
-            Console.Write("To generate OTP type (1), to decode a message type (2), encode a message with a custom OTP type (3): ");//prompt user for which operation to do
+            Console.WriteLine(int.MaxValue);
+            Console.Write("To generate OTP type (1)\nTo decode a message type (2)\nEncode a message with a custom OTP type (3)\nGenerate a less secure OTP type (4): ");//prompt user for which operation to do
             string genOrDecodeResp = Console.ReadLine();//store their response
             if(genOrDecodeResp == "1")//if they want to generate an OTP
             {
@@ -33,6 +34,53 @@ namespace hbxpog
                     keyAInt[i] = int.Parse(keyAStr[i]);//parse every string of the key array into the int array
                 }
                 EncryptMessage(keyAInt);
+            }
+            else if(genOrDecodeResp == "4")//similar to 1, generates a set list of 1million ints to choose a key from
+            {
+                Random rng = new Random(314159265);//seed the random with PI
+                int[] randArr = new int[276800000];//setup an array with a lot values in it
+                Console.Clear();
+                Console.WriteLine("Generating OTPs, please wait...");
+                for (int i = 0; i < 276800000; i++)//populate
+                {
+                    int random = rng.Next(0, 26);//with ints 0-25
+                    randArr[i] = random;//store in the array
+                }
+                Console.Clear();
+                bool stayInLoop = true;
+                int charNum;
+                int seqNum;
+                do
+                {
+
+                    Console.Write("How many characters: ");//prompt for how long the key should be
+                    charNum = int.Parse(Console.ReadLine());//parse that into an int
+
+                    Console.Write("Enter a number in the sequence(0-276800000): ");//prompt for where in the sequence, any one number will always return the same set
+                    int.TryParse(Console.ReadLine(), out seqNum);
+                    if (seqNum > 276800000 || charNum + seqNum > 276800000 || seqNum == 0)//if outside of the array
+                    {
+                        Console.WriteLine("Please choose a lower number in the sequence...");//call user out
+                        Console.ReadKey();
+                        stayInLoop = true;
+                    }
+                    else { stayInLoop = false; }
+                } while (stayInLoop);
+                
+
+                for (int i = seqNum; i < seqNum + charNum; i++)//this loop gets an exact sequence from the large array of randoms
+                {
+                    if (i == seqNum + charNum - 1)
+                    {
+                        Console.Write(randArr[i] + "\n");
+                    }
+                    else
+                    {
+                        Console.Write(randArr[i] + "/");
+                    }
+                }
+                Console.Write("Press any key to exit program...");
+                Console.ReadKey();
             }
             else//if they didn't enter anything correctly
             {
