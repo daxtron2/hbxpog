@@ -12,7 +12,7 @@ namespace hbxpog
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(int.MaxValue);
+            //Console.WriteLine(int.MaxValue);
             Console.Write("To generate OTP type (1)\nTo decode a message type (2)\nEncode a message with a custom OTP type (3)\nGenerate a less secure OTP type (4): ");//prompt user for which operation to do
             string genOrDecodeResp = Console.ReadLine();//store their response
             if(genOrDecodeResp == "1")//if they want to generate an OTP
