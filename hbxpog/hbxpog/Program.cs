@@ -171,9 +171,12 @@ namespace hbxpog
                 else { stayInLoop = false; }
             } while (stayInLoop);
 
-
+            int[] shiftAmt = new int[charNum];//setup an array to store the OTP that is the length of the message
+            int j = 0;//indexer
             for (int i = seqNum; i < seqNum + charNum; i++)//this loop gets an exact sequence from the large array of randoms
             {
+                shiftAmt[j] = randArr[i];
+                j++;
                 if (i == seqNum + charNum - 1)
                 {
                     Console.Write(randArr[i] + "\n");
@@ -183,8 +186,19 @@ namespace hbxpog
                     Console.Write(randArr[i] + "/");
                 }
             }
-            Console.Write("Press any key to exit program...");
-            Console.ReadKey();
+
+            Console.Write("\nWould you like to generate a message with this OTP now(Y/N): ");//prompt if they would like to generate a message within the program
+            string yesNo = Console.ReadLine();//store their response
+            if (yesNo == "y" || yesNo == "Y" || yesNo.ToUpper() == "YES")//check for common yes responses
+            {
+                EncryptMessage(shiftAmt);//go to the encrypt method, using the OTP we just generated
+            }
+            else
+            {
+
+                Console.Write("Press any key to exit program...");
+                Console.ReadKey();
+            }
         }
 
     }
