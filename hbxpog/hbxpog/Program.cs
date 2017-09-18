@@ -175,15 +175,15 @@ namespace hbxpog
             int j = 0;//indexer
             for (int i = seqNum; i < seqNum + charNum; i++)//this loop gets an exact sequence from the large array of randoms
             {
-                shiftAmt[j] = randArr[i];
+                shiftAmt[j] = randArr[i];//store the shift number in the shiftAmt array in case they want to generate the message after
                 j++;
-                if (i == seqNum + charNum - 1)
+                if (i == seqNum + charNum - 1)//if the last number in the requested part of sequence
                 {
-                    Console.Write(randArr[i] + "\n");
+                    Console.Write(randArr[i] + "\n");//add a new line after the number
                 }
-                else
+                else//if there are still more numbers
                 {
-                    Console.Write(randArr[i] + "/");
+                    Console.Write(randArr[i] + "/");//add a parenthese instead
                 }
             }
 
@@ -193,7 +193,7 @@ namespace hbxpog
             {
                 EncryptMessage(shiftAmt);//go to the encrypt method, using the OTP we just generated
             }
-            else
+            else//prevents the message showing up twice if they want to generate a message
             {
 
                 Console.Write("Press any key to exit program...");
